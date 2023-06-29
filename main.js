@@ -41,15 +41,27 @@ function populateTable(library) {
         `<td>${object.author}` +
         `<td>${object.pages}` +
         `<td>${object.read}` +
-        `<td><button class='button toggle' data-index='${library.indexOf(object)}'>toggle`;
+        `<td><button class='button toggle' 
+        data-index='${library.indexOf(object)}'>toggle` +
+        `<td><button class='button delete' 
+        data-index='${library.indexOf(object)}'>&times`;
         tableBody.appendChild(fr)
         let toggleBtn = document.querySelectorAll('.toggle')
         toggleBtn.forEach(btn => {
             btn.addEventListener('click', toggleRead)
         })
+        let deleteBtn = document.querySelectorAll('.delete')
+        deleteBtn.forEach(btn => {
+            btn.addEventListener('click', deleteObj)
+        })
+        
     })
 }
 
+/**
+ * toggles between yes and no for the Read? column and updates the table
+ * @param {event object} e contains index data on current element in array
+ */
 function toggleRead(e){
     let index = e.target.dataset.index
     if (myLibrary[index].read === 'yes') {
@@ -57,5 +69,15 @@ function toggleRead(e){
     } else {
         myLibrary[index].read = 'yes'
     }
+    populateTable(myLibrary)
+}
+
+/**
+ * deletes the element from the array and updates the table
+ * @param {event object} e contains index data on current element in array
+ */
+function deleteObj(e){
+    let index = e.target.dataset.index
+    myLibrary.splice(index, 1)
     populateTable(myLibrary)
 }
