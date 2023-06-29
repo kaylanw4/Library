@@ -14,12 +14,16 @@ closeModal.addEventListener('click', () => {
 // create array to hold book objects
 let myLibrary = [];
 
+
 // create book objects from form submission
 const form = document.querySelector('form')
+const read = document.querySelector('#read')
 form.addEventListener('submit', (e) => {
     e.preventDefault()
     const fd = new FormData(form)
     const obj = Object.fromEntries(fd)
+    obj.read = (read.checked) ? 'read' : 'not read'
+    console.log(obj)
     myLibrary.push(obj)
     populateTable(myLibrary)
     form.reset()
@@ -35,12 +39,14 @@ function populateTable(library) {
     while (tableBody.firstChild) {
         tableBody.removeChild(tableBody.firstChild)
     }
-    library.forEach(object => {
+    library.forEach((object, index) => {
         let fr = document.createElement('tr')
-        fr.innerHTML = `<td>${object.title}` +
-        `<td>${object.author}` +
-        `<td>${object.pages}` +
-        `<td>${object.read}` +
+        Object.keys(object).forEach(property => {
+            let td = document.createElement('td')
+            td.textContent = object[property]
+            fr.appendChild(td)
+        })
+        fr.innerHTML += 
         `<td><button class='button toggle' 
         data-index='${library.indexOf(object)}'>toggle` +
         `<td><button class='button delete' 
@@ -54,7 +60,6 @@ function populateTable(library) {
         deleteBtn.forEach(btn => {
             btn.addEventListener('click', deleteObj)
         })
-        
     })
 }
 
@@ -64,10 +69,10 @@ function populateTable(library) {
  */
 function toggleRead(e){
     let index = e.target.dataset.index
-    if (myLibrary[index].read === 'yes') {
-        myLibrary[index].read = 'no'
+    if (myLibrary[index].read === 'read') {
+        myLibrary[index].read = 'not read'
     } else {
-        myLibrary[index].read = 'yes'
+        myLibrary[index].read = 'read'
     }
     populateTable(myLibrary)
 }
