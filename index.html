@@ -3,14 +3,35 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>js practice</title>
+        <title>Library</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="./styles.css">
     </head>
     <body>
-        <h1>js practice</h1>
-        <p>right click -> inspect -> console</p>
+        <h1>Library</h1>
+        <button>New Book +</button>
+        <dialog class="modal" open>
+            <form>
+                <div>
+                    <label for="title">Title:</label>
+                    <input type="text" name="title">
+                </div>
+                <div>
+                    <label for="author">Author:</label>
+                    <input type="text" name="author">
+                </div>
+                <div>
+                    <label for="pages">Number of pages</label>
+                    <input type="number" name="pages">
+                </div>
+                <div>
+                    <input type="checkbox" name="read">
+                    <label for="read">Have you read this book?</label>
+                </div>
+                <button type="submit">Submit</button>
+            </form>
+        </dialog>
         <script src="./script.js" async defer></script>
     </body>
 </html>
